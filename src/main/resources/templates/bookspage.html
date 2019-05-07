@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <link href="css/minimal-table.css" rel="stylesheet" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="css/modalwin.css" rel="stylesheet" type="text/css">
+    <script src="js/modalwindow.js"></script>
+    <script src="js/getpage.js"></script>
+    <script src="js/postrequest.js"></script>
+</head>
+<body>
+    <h3>Here comes the books...</h3>
+    <button id="prevPage" type="button" class="btn btn-primary">
+        Prev
+    </button>
+    <button id="nextPage" type="button" class="btn btn-primary">
+        Next
+    </button>
+
+    <div id="result"></div>
+
+    <button id="addBook" type="button" class="btn btn-primary">
+        Add Book
+    </button>
+    <div id="addWindow" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Добавить книгу</h2>
+            </div>
+            <form class="bookForm">
+                <div class="form-group">
+                    <label for="isbn">Book ID:</label> <input type="text"
+                                                                class="form-control" id="isbn" placeholder="Enter Book Id"
+                                                                name="isbn">
+                </div>
+                <div class="form-group">
+                    <label for="author">Book Name:</label> <input type="text"
+                                                                    class="form-control" id="author" placeholder="Enter Book Name"
+                                                                    name="author">
+                </div>
+                <div class="form-group">
+                    <label for="title">Title :</label> <input type="text"
+                                                                class="form-control" id="title" placeholder="Enter Author name"
+                                                                name="title">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="ajaxPost();">Submit</button>
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>
