@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
+
     <link href="css/minimal-table.css" rel="stylesheet" type="text/css">
+    <link href="css/modal-window.css" rel="stylesheet" type="text/css">
+    <link href="css/header.css" rel="stylesheet" type="text/css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="css/modalwin.css" rel="stylesheet" type="text/css">
-    <script src="js/modalwindow.js"></script>
-    <script src="js/getpage.js"></script>
-    <script src="js/postrequest.js"></script>
+    <script src="js/book-modal-window.js"></script>
+    <script src="js/books-requests.js"></script>
 </head>
 <body>
-    <h3>Here comes the books...</h3>
+    <header>
+        <a href="/users">Пользователи</a>
+        <a href="/books">Книги</a>
+    </header>
     <button id="prevPage" type="button" class="btn btn-primary">
         Prev
     </button>
@@ -22,14 +26,18 @@
 
     <div id="result"></div>
 
-    <button id="addBook" type="button" class="btn btn-primary">
-        Add Book
+    <button id="add-book-button" type="button" class="btn btn-primary">
+        Добавить Книгу
     </button>
+
+
+
+
     <div id="addWindow" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>Добавить книгу</h2>
+                <h2 id="cr-up-header">Добавить книгу</h2>
             </div>
             <form class="bookForm">
                 <div class="form-group">
@@ -47,7 +55,8 @@
                                                                 class="form-control" id="title" placeholder="Enter Author name"
                                                                 name="title">
                 </div>
-                <button type="button" class="btn btn-primary" onclick="ajaxPost();">Submit</button>
+                <button type="button" id="submit-add-button" class="btn btn-primary" >Подтвердить</button>
+                <button type="button" id="submit-update-button" class="btn btn-primary" >Подтвердить</button>
             </form>
         </div>
 

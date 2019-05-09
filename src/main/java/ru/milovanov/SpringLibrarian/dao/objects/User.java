@@ -1,7 +1,12 @@
 package ru.milovanov.SpringLibrarian.dao.objects;
 
-import java.util.Objects;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+@Data
+//@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     private String username,password;
 

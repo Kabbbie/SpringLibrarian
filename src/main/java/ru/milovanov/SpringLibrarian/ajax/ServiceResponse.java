@@ -9,9 +9,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ServiceResponse<T> {
-    private String status;
+    private String status,user;
     private T data;
-    public ServiceResponse(String status,T data){
+    public ServiceResponse(String status,String user,T data){
+        this.user=user;
         this.status=status;
         this.data=data;
     }

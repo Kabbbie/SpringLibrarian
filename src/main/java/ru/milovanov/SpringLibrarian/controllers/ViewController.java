@@ -6,8 +6,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ViewController {
-    @GetMapping("/book")
-    public String getHomePage(){
-        return "bookspage";
+    @GetMapping("/books")
+    public String getBooksPage(){
+        return "books";
     }
+    @GetMapping("/users")
+    public String getUsersPage(){ return "users";}
+    @GetMapping("/")
+    public String getHomePage(){ return "home";}
 }

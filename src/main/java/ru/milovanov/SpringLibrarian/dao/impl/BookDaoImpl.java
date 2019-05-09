@@ -3,7 +3,10 @@ package ru.milovanov.SpringLibrarian.dao.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
+import ru.milovanov.SpringLibrarian.ajax.Page;
 import ru.milovanov.SpringLibrarian.dao.interfaces.BookDao;
 import ru.milovanov.SpringLibrarian.dao.objects.Book;
 
@@ -29,7 +32,9 @@ public class BookDaoImpl implements BookDao {
                 resultSet.getString("username")
         );
     }
-    public List<Book> getPageByNum(int pageNum){
+    public Page getPageByNum(int pageNum,boolean ascSort,String sortParam){
+        int totalRecords=getAll().size();
+        //System.out.println(totalRecords);
         List<Book> page;
         int startElement=1;
         if(pageNum==1){
@@ -38,8 +43,13 @@ public class BookDaoImpl implements BookDao {
         else{
             startElement=(pageNum-1)*5;
         }
-        page=jdbcTemplate.query("select * from books limit "+startElement+",5",this::mapRowToBook);
-        return page;
+        if(ascSort){
+            page=jdbcTemplate.query("select * from books order by " +sortParam+" asc limit "+startElement+",5",this::mapRowToBook);
+        }
+        else{
+            page=jdbcTemplate.query("select * from books order by " +sortParam+" desc limit "+startElement+",5",this::mapRowToBook);
+        }
+        return new Page(page,totalRecords);
     }
 
     @Override
@@ -71,18 +81,24 @@ public class BookDaoImpl implements BookDao {
         return getOneByIsbn(book.getIsbn());
     }
 
-
+    @Override
+    public Book updateUser(String isbn,String user){
+        Book book=getOneByIsbn(isbn);
+        book.setUsername(user);
+        book=updateInfo(book);
+        return book;
+    }
 
     @Override
-    public Book update(Book book) {
-        jdbcTemplate.update("update books set author=?1,title=?2,username=?3 where isbn=?4",
+    public Book updateInfo(Book book) {
+        jdbcTemplate.update("update books set author=?,title=?,username=? where isbn=?",
                 book.getAuthor(),
                 book.getTitle(),
                 book.getUsername(),
                 book.getIsbn());
-        //System.out.println(book.getIsbn());
         return getOneByIsbn(book.getIsbn());
     }
+
 
     @Override
     public int delete(String isbn) {
