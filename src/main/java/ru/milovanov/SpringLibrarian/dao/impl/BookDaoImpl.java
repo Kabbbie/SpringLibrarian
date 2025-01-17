@@ -1,5 +1,6 @@
 package ru.milovanov.SpringLibrarian.dao.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class BookDaoImpl implements BookDao {
 
     private JdbcTemplate jdbcTemplate;
@@ -34,7 +36,7 @@ public class BookDaoImpl implements BookDao {
     }
     public Page getPageByNum(int pageNum,boolean ascSort,String sortParam){
         int totalRecords=getAll().size();
-        //System.out.println(totalRecords);
+        log.debug("Total records: {}", totalRecords);
         List<Book> page;
         int startElement=1;
         if(pageNum==1){
